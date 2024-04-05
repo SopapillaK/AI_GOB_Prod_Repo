@@ -90,9 +90,9 @@ public class GoalSeeker : MonoBehaviour
         //mActions[6].targetGoals.Add(new Goal("Relax", +4f));
 
         mActions[6] = new Action("meditate");
-        mActions[6].targetGoals.Add(new Goal("Eat", 0f));
+        mActions[6].targetGoals.Add(new Goal("Eat", -1f));
         mActions[6].targetGoals.Add(new Goal("Sleep", -2f));
-        mActions[6].targetGoals.Add(new Goal("Bathroom", 0f));
+        mActions[6].targetGoals.Add(new Goal("Bathroom", -2f));
         //mActions[7].targetGoals.Add(new Goal("Relax", +3f));
 
         // the rate my goals change just as a result of time passing
