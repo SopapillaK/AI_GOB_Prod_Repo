@@ -55,7 +55,7 @@ public class GoalSeeker : MonoBehaviour
 
         mActions[1] = new Action("eat a snack");
         mActions[1].targetGoals.Add(new Goal("Eat", -2f));
-        mActions[1].targetGoals.Add(new Goal("Sleep", -1f));
+        mActions[1].targetGoals.Add(new Goal("Sleep", +1f));
         mActions[1].targetGoals.Add(new Goal("Bathroom", +1f));
         //mActions[1].targetGoals.Add(new Goal("Relax", -1f));
 
@@ -73,8 +73,8 @@ public class GoalSeeker : MonoBehaviour
 
         mActions[3] = new Action("drink a coffee");
         mActions[3].targetGoals.Add(new Goal("Eat", -1f));
-        mActions[3].targetGoals.Add(new Goal("Sleep", -3f));
-        mActions[3].targetGoals.Add(new Goal("Bathroom", +3f));
+        mActions[3].targetGoals.Add(new Goal("Sleep", -2f));
+        mActions[3].targetGoals.Add(new Goal("Bathroom", +2f));
         //mActions[4].targetGoals.Add(new Goal("Relax", -1f));
 
         mActions[4] = new Action("visit the bathroom");
@@ -85,19 +85,19 @@ public class GoalSeeker : MonoBehaviour
 
         mActions[5] = new Action("play videogames");
         mActions[5].targetGoals.Add(new Goal("Eat", +2f));
-        mActions[5].targetGoals.Add(new Goal("Sleep", +1f));
+        mActions[5].targetGoals.Add(new Goal("Sleep", 0f));
         mActions[5].targetGoals.Add(new Goal("Bathroom", +1f));
         //mActions[6].targetGoals.Add(new Goal("Relax", +4f));
 
         mActions[6] = new Action("meditate");
         mActions[6].targetGoals.Add(new Goal("Eat", -1f));
-        mActions[6].targetGoals.Add(new Goal("Sleep", -2f));
+        mActions[6].targetGoals.Add(new Goal("Sleep", +1f));
         mActions[6].targetGoals.Add(new Goal("Bathroom", -2f));
         //mActions[7].targetGoals.Add(new Goal("Relax", +3f));
 
         // the rate my goals change just as a result of time passing
         mChangeOverTime = new Action("tick");
-        mChangeOverTime.targetGoals.Add(new Goal("Eat", +4f));
+        mChangeOverTime.targetGoals.Add(new Goal("Eat", +3f));
         mChangeOverTime.targetGoals.Add(new Goal("Sleep", +1f));
         mChangeOverTime.targetGoals.Add(new Goal("Bathroom", +2f));
         //mChangeOverTime.targetGoals.Add(new Goal("Relax", -1f));
