@@ -9,14 +9,28 @@ public class GoalSeeker : MonoBehaviour
     Action mChangeOverTime;
     const float TICK_LENGTH = 5.0f;
 
+    public AudioClip bathroomAudio;
+    public AudioClip sleepAudio;
+    public AudioClip eatSnackAudio;
+    public AudioClip drinkAudio;
+    public AudioClip rawFoodAudio;
+    private AudioSource ac;
+
+    public GameObject drinkObj;
+    public GameObject snackObj;
+    public GameObject rawFoodObj;
     // Start is called before the first frame update
     void Start()
     {
+        //For my audio
+        ac = GetComponent<AudioSource>();
+
         // my inital motives/goals
-        mGoals = new Goal[3];
+        mGoals = new Goal[4];
         mGoals[0] = new Goal("Eat", 4);
         mGoals[1] = new Goal("Sleep", 3);
         mGoals[2] = new Goal("Bathroom", 3);
+        mGoals[3] = new Goal("Relax", 2);
 
         //// the actions I know how to do
         //mActions = new Action[4];
@@ -26,42 +40,61 @@ public class GoalSeeker : MonoBehaviour
         //mActions[3] = new Action("sleep on the sofa", "Sleep", -2f);
 
         // the actions I know how to do
-        mActions = new Action[6];
+        mActions = new Action[8];
         mActions[0] = new Action("eat some raw food");
         mActions[0].targetGoals.Add(new Goal("Eat", -3f));
         mActions[0].targetGoals.Add(new Goal("Sleep", +2f));
         mActions[0].targetGoals.Add(new Goal("Bathroom", +1f));
+        mActions[0].targetGoals.Add(new Goal("Relax", -2f));
 
         mActions[1] = new Action("eat a snack");
         mActions[1].targetGoals.Add(new Goal("Eat", -2f));
         mActions[1].targetGoals.Add(new Goal("Sleep", -1f));
         mActions[1].targetGoals.Add(new Goal("Bathroom", +1f));
+        mActions[1].targetGoals.Add(new Goal("Relax", -1f));
 
         mActions[2] = new Action("sleep in the bed");
         mActions[2].targetGoals.Add(new Goal("Eat", +2f));
         mActions[2].targetGoals.Add(new Goal("Sleep", -4f));
         mActions[2].targetGoals.Add(new Goal("Bathroom", +2f));
+        mActions[2].targetGoals.Add(new Goal("Relax", +3f));
 
         mActions[3] = new Action("sleep on the sofa");
         mActions[3].targetGoals.Add(new Goal("Eat", +1f));
         mActions[3].targetGoals.Add(new Goal("Sleep", -2f));
         mActions[3].targetGoals.Add(new Goal("Bathroom", +1f));
+        mActions[3].targetGoals.Add(new Goal("Relax", +2f));
 
         mActions[4] = new Action("drink a soda");
         mActions[4].targetGoals.Add(new Goal("Eat", -1f));
         mActions[4].targetGoals.Add(new Goal("Sleep", -2f));
         mActions[4].targetGoals.Add(new Goal("Bathroom", +3f));
+        mActions[4].targetGoals.Add(new Goal("Relax", -1f));
 
         mActions[5] = new Action("visit the bathroom");
         mActions[5].targetGoals.Add(new Goal("Eat", 0f));
         mActions[5].targetGoals.Add(new Goal("Sleep", 0f));
         mActions[5].targetGoals.Add(new Goal("Bathroom", -4f));
+        mActions[5].targetGoals.Add(new Goal("Relax", -3f));
+
+        mActions[6] = new Action("play videogames");
+        mActions[6].targetGoals.Add(new Goal("Eat", +2f));
+        mActions[6].targetGoals.Add(new Goal("Sleep", +1f));
+        mActions[6].targetGoals.Add(new Goal("Bathroom", +1f));
+        mActions[6].targetGoals.Add(new Goal("Relax", +4f));
+
+        mActions[7] = new Action("meditate");
+        mActions[7].targetGoals.Add(new Goal("Eat", 0f));
+        mActions[7].targetGoals.Add(new Goal("Sleep", -2f));
+        mActions[7].targetGoals.Add(new Goal("Bathroom", 0f));
+        mActions[7].targetGoals.Add(new Goal("Relax", +3f));
 
         // the rate my goals change just as a result of time passing
         mChangeOverTime = new Action("tick");
         mChangeOverTime.targetGoals.Add(new Goal("Eat", +4f));
         mChangeOverTime.targetGoals.Add(new Goal("Sleep", +1f));
         mChangeOverTime.targetGoals.Add(new Goal("Bathroom", +2f));
+        mChangeOverTime.targetGoals.Add(new Goal("Relax", -1f));
 
         Debug.Log("Starting clock. One hour will pass every " + TICK_LENGTH + " seconds.");
         InvokeRepeating("Tick", 0f, TICK_LENGTH);
@@ -103,6 +136,34 @@ public class GoalSeeker : MonoBehaviour
             //PrintGoals();
 
             Action bestThingToDo = ChooseAction(mActions, mGoals);
+            if (bestThingToDo.name == "eat a snack")
+            {
+                ac.PlayOneShot(eatSnackAudio);
+                snackObj.SetActive(true);
+                Invoke("GrabObject", 2.0f);
+            }
+            if (bestThingToDo.name == "visit the bathroom")
+            {
+                ac.PlayOneShot(bathroomAudio);
+            }
+            if (bestThingToDo.name == "sleep in the bed")
+            {
+                ac.PlayOneShot(sleepAudio);
+            }
+            if (bestThingToDo.name == "drink a soda")
+            {
+                ac.PlayOneShot(drinkAudio);
+                drinkObj.SetActive(true);
+                Invoke("GrabObject", 2.0f);
+            }
+            if (bestThingToDo.name == "eat some raw food")
+            {
+                ac.PlayOneShot(rawFoodAudio);
+                rawFoodObj.SetActive(true);
+                Invoke("GrabObject", 2.0f);
+            }
+
+
             //Debug.Log("-- BEST ACTION --");
             Debug.Log("I think I will " + bestThingToDo.name);
 
@@ -116,6 +177,16 @@ public class GoalSeeker : MonoBehaviour
             //Debug.Log("-- NEW GOALS --");
             PrintGoals();
         }
+    }
+
+    public void GrabObject(GameObject obj)
+    {
+        TurnOffObject(obj);
+    }
+
+    public void TurnOffObject(GameObject obj)
+    {
+        obj.SetActive(false);
     }
 
     Action ChooseAction(Action[] actions, Goal[] goals)
