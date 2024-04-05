@@ -2543,7 +2543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1598737658758947845, guid: 9618ee5198d5bc14690b61b995f89590, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2117830654869487295, guid: 9618ee5198d5bc14690b61b995f89590, type: 3}
       propertyPath: m_LocalScale.x
@@ -2743,7 +2743,7 @@ MonoBehaviour:
   sleepObj: {fileID: 1228637197}
   bathroomObj: {fileID: 1071396797}
   gameObj: {fileID: 138936348}
-  meditateObj: {fileID: 0}
+  meditateObj: {fileID: 1963531368}
 --- !u!82 &1816528723
 AudioSource:
   m_ObjectHideFlags: 0
